@@ -1,3 +1,5 @@
+import { AuthActions } from "../ReduxSlices/AuthSlice";
+
 export const SignUpAction = (email, password, userName) => {
   return async (dispatch) => {
     const SignUpAction = async (email, password, userName) => {
@@ -46,7 +48,10 @@ export const SignInAction = (email, password, history) => {
         );
         const data = await response.json();
         console.log(data);
-        history.replace("/DummyWelcome");
+        const idToken = data.idToken;
+        console.log(idToken);
+        history.replace("/MailHome");
+        dispatch(AuthActions.login({ email: email, idToken: idToken }));
       } catch (error) {
         alert(error.message);
       }

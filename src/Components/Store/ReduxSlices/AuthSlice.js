@@ -8,12 +8,12 @@ const initialAuthState = {
 const AuthSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
-  reducer: {
+  reducers: {
     login: (state, action) => {
       state.email = action.payload.email;
       state.idToken = action.payload.idToken;
-      localStorage.setItem("email", state.email);
-      localStorage.setItem("idToken", state.idToken);
+      localStorage.setItem("email", action.payload.email);
+      localStorage.setItem("idToken", action.payload.idToken);
     },
   },
 });
