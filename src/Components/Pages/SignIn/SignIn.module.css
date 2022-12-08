@@ -1,8 +1,10 @@
-.SignUp {
+.SignIn {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.SignUpError input {
+.SignInError input {
   border-radius: 0.4rem;
   margin: 5px;
   padding: 5px 3px;
@@ -11,7 +13,7 @@
   border-color: red;
 }
 
-.SignUpError {
+.SignInError {
   color: red;
   text-align: center;
 }

@@ -15,7 +15,7 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorValid, seterrorValid] = useState(false);
 
-  const dispatch = useDispatch("");
+  const dispatch = useDispatch();
   const signUpHandler = (event) => {
     event.preventDefault();
     const firstName = firstNameRef.current.value;
@@ -102,10 +102,10 @@ const SignUp = () => {
         ></input>
       </div>
       <div>
-        <Link>Sign in instead</Link>
+        <Link to="/SignIn">Sign in instead</Link>
         <Button>Create Account</Button>
       </div>
-      <h4>{errorValid && errorMessage}</h4>
+      {errorValid && <h4 className={classes.SignUpError}>{errorMessage}</h4>}
     </Form>
   );
 };
