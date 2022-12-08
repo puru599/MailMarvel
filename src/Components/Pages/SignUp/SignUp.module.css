@@ -1,0 +1,12 @@
+.SignUp {
+  display: flex;
+}
+
+.SignUpError input {
+  border-radius: 0.4rem;
+  margin: 5px;
+  padding: 5px 3px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: red;
+}
