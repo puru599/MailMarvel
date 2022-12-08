@@ -34,7 +34,7 @@ const SignUp = () => {
       password === confirmPassword;
 
     if (allow) {
-      // dispatch(SignUpAction(email, password, userName));
+      dispatch(SignUpAction(email, password, userName));
       console.log(allow);
       seterrorValid(false);
     } else {
