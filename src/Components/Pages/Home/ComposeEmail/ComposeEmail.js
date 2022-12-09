@@ -16,8 +16,7 @@ const ComposeEmail = () => {
   const dispatch = useDispatch();
 
   const localEmail = useSelector((state) => state.auth.email);
-  const localIdToken = useSelector((state) => state.auth.idToken);
-  const regexEmail = useSelector((state) => state.auth.regexEmail);
+  const fromRegexEmail = useSelector((state) => state.auth.regexEmail);
 
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -32,6 +31,9 @@ const ComposeEmail = () => {
     const toEmail = toEmailRef.current.value;
     const subject = subjectRef.current.value;
     const message = editorState.getCurrentContent().getPlainText();
+
+    const regex = /[.@]/g;
+    const toRegexEmail = toEmail.replace(regex, "");
 
     const date = new Date();
     const months = [
@@ -58,13 +60,12 @@ const ComposeEmail = () => {
       date.getHours() +
       ":" +
       date.getMinutes();
-    console.log(timeStamp);
 
     dispatch(
       SendEmailAction(
         localEmail,
-        regexEmail,
-        localIdToken,
+        fromRegexEmail,
+        toRegexEmail,
         toEmail,
         subject,
         message,
@@ -86,7 +87,12 @@ const ComposeEmail = () => {
             <button>x</button>
           </div>
         </div>
-        <input type="text" placeholder="To:" ref={toEmailRef}></input>
+        <input
+          id="emailId"
+          type="text"
+          placeholder="To:"
+          ref={toEmailRef}
+        ></input>
         <input type="text" placeholder="Subject" ref={subjectRef}></input>
         <Editor
           editorState={editorState}

@@ -4,11 +4,14 @@ import { Redirect, Route } from "react-router-dom";
 import SignIn from "./Components/Pages/SignIn/SignIn";
 import SignUp from "./Components/Pages/SignUp/SignUp";
 import MailHome from "./Components/Pages/Home/MailHome/MailHome";
+import Header from "./Components/Layout/Header/Header";
+import MailExpand from "./Components/Pages/Home/MailExpand/MailExpand";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.email);
   return (
     <React.Fragment>
+      <Header />
       {!!isLoggedIn && (
         <Route path="*">
           <Redirect to="/MailHome" />
@@ -25,8 +28,11 @@ function App() {
       <Route path="/SignIn">
         <SignIn />
       </Route>
-      <Route path="/MailHome">
+      <Route path="/MailHome" exact>
         <MailHome />
+      </Route>
+      <Route path="/MailHome/:mailId">
+        <MailExpand />
       </Route>
     </React.Fragment>
   );

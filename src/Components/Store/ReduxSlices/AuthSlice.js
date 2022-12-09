@@ -18,6 +18,14 @@ const AuthSlice = createSlice({
       localStorage.setItem("idToken", action.payload.idToken);
       localStorage.setItem("regexEmail", action.payload.regexEmail);
     },
+    logout: (state, action) => {
+      state.email = null;
+      state.idToken = null;
+      state.regexEmail = null;
+      localStorage.removeItem("email");
+      localStorage.removeItem("idToken");
+      localStorage.removeItem("regexEmail");
+    },
   },
 });
 
