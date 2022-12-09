@@ -22,13 +22,16 @@ const SignIn = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+    const regex = /[.@]/g;
+    const regexEmail = email.replace(regex, "");
+
     const allow =
       email.length > 0 &&
       email.includes(".com") &&
       email.includes("@") &&
       password.length > 5;
     if (allow) {
-      dispatch(SignInAction(email, password, history));
+      dispatch(SignInAction(email, password, regexEmail, history));
       setErrorValid(false);
     } else {
       setErrorValid(true);

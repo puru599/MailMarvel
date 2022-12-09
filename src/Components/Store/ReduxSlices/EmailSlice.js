@@ -8,7 +8,7 @@ const EmailSlice = createSlice({
   name: "email",
   initialState: initialEmailState,
   reducers: {
-    setEmail: (state, action) => {
+    setInbox: (state, action) => {
       state.inbox = action.payload;
     },
   },
@@ -16,4 +16,4 @@ const EmailSlice = createSlice({
 
 export const EmailActions = EmailSlice.actions;
 
-export default EmailSlice;
+export default EmailSlice.reducer;

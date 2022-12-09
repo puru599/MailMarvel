@@ -28,34 +28,35 @@ export const SignUpAction = (email, password, userName) => {
   };
 };
 
-export const SignInAction = (email, password, history) => {
+export const SignInAction = (email, password, regexEmail, history) => {
   return async (dispatch) => {
-    const SignInAction = async (email, password, history) => {
-      try {
-        const response = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB9BKVZ07pM0finODCLKs3JlBy0IjHzcKo",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: email,
-              password: password,
-              returnSecureToken: true,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await response.json();
-        console.log(data);
-        const idToken = data.idToken;
-        console.log(idToken);
-        history.replace("/MailHome");
-        dispatch(AuthActions.login({ email: email, idToken: idToken }));
-      } catch (error) {
-        alert(error.message);
-      }
-    };
-    SignInAction(email, password, history);
+    try {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB9BKVZ07pM0finODCLKs3JlBy0IjHzcKo",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            returnSecureToken: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      const idToken = data.idToken;
+      history.replace("/MailHome");
+      dispatch(
+        AuthActions.login({
+          email: email,
+          idToken: idToken,
+          regexEmail: regexEmail,
+        })
+      );
+    } catch (error) {
+      alert(error.message);
+    }
   };
 };

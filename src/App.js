@@ -1,15 +1,24 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import MailHome from "./Components/Pages/MailHome/MailHome";
 import SignIn from "./Components/Pages/SignIn/SignIn";
 import SignUp from "./Components/Pages/SignUp/SignUp";
+import MailHome from "./Components/Pages/Home/MailHome/MailHome";
 
 function App() {
+  const isLoggedIn = useSelector((state) => state.auth.email);
   return (
     <React.Fragment>
-      <Route path="*">
-        <Redirect to="/SignIn" />
-      </Route>
+      {!!isLoggedIn && (
+        <Route path="*">
+          <Redirect to="/MailHome" />
+        </Route>
+      )}
+      {!isLoggedIn && (
+        <Route path="*">
+          <Redirect to="/SignIn" />
+        </Route>
+      )}
       <Route path="/SignUp">
         <SignUp />
       </Route>
