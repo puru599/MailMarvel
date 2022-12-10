@@ -65,6 +65,7 @@ export const SendEmailAction = (
 };
 
 export const getMailsAction = (regexEmail) => {
+  console.log("getMailsAction");
   return async (dispatch) => {
     try {
       const response = await fetch(

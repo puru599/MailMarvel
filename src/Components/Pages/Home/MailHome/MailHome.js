@@ -23,6 +23,14 @@ const MailHome = () => {
   const inbox = useSelector((state) => state.email.inbox);
   const sent = useSelector((state) => state.email.sent);
 
+  // setInterval(() => {
+  //   console.log("Fetching");
+  // }, 2000);
+
+  const countOfUnread = inbox.reduce((curNum, mail) => {
+    return (mail.read === false) + curNum;
+  }, 0);
+
   const [composeEmailState, setComposeEmailState] = useState(false);
   const composeEmailHandler = () => {
     setComposeEmailState((composeEmailState) => {
@@ -47,14 +55,21 @@ const MailHome = () => {
   };
 
   const deleteInboxMailHandler = (id) => {
-    // dispatch(EmailActions.inboxMailDelete(id));
+    dispatch(EmailActions.inboxMailDelete(id));
     dispatch(deleteInboxMailFetching(regexEmail, id));
   };
 
   const deleteSentMailHandler = (id) => {
-    // dispatch(EmailActions.sentMailDelete(id));
+    dispatch(EmailActions.sentMailDelete(id));
     dispatch(deleteSentMailFetching(regexEmail, id));
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(getMailsAction(regexEmail));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [dispatch, regexEmail]);
 
   useEffect(() => {
     dispatch(getMailsAction(regexEmail));
@@ -65,7 +80,7 @@ const MailHome = () => {
       <Button onClick={composeEmailHandler}>Compose</Button>
       <h1>{email}</h1>
       <div>
-        <h3>Inbox</h3>
+        <h3>Inbox {countOfUnread} </h3>
         <ul>
           {inbox.map((mail) => (
             <li key={mail.toEmail + "" + mail.subject}>
