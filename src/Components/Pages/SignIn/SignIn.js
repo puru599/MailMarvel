@@ -5,10 +5,13 @@ import Button from "../../Layout/UI/Button";
 import classes from "./SignIn.module.css";
 import { useDispatch } from "react-redux";
 import { SignInAction } from "../../Store/ActionCreators/AuthActions";
+import useFetch from "../../../Hooks/use-fetch";
+import React from "react";
 
 const SignIn = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  useFetch();
 
   const [errorValid, setErrorValid] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);

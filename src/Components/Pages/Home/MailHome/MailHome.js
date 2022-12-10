@@ -14,6 +14,7 @@ import Button from "../../../Layout/UI/Button";
 import { useState } from "react";
 import { EmailActions } from "../../../Store/ReduxSlices/EmailSlice";
 import { Link } from "react-router-dom";
+import useFetch from "../../../../Hooks/use-fetch";
 
 const MailHome = () => {
   const dispatch = useDispatch();
@@ -64,16 +65,18 @@ const MailHome = () => {
     dispatch(deleteSentMailFetching(regexEmail, id));
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(getMailsAction(regexEmail));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [dispatch, regexEmail]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     dispatch(getMailsAction(regexEmail));
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [dispatch, regexEmail]);
 
-  useEffect(() => {
-    dispatch(getMailsAction(regexEmail));
-  }, [dispatch, regexEmail]);
+  useFetch(regexEmail);
+
+  // useEffect(() => {
+  //   dispatch(getMailsAction(regexEmail));
+  // }, [dispatch, regexEmail]);
 
   return (
     <React.Fragment>
