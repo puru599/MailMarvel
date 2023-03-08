@@ -1,0 +1,43 @@
+.Welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5vh;
+}
+
+.Welcome img {
+  width: 50%;
+  position: relative;
+  left: 15%;
+}
+
+.firstLine {
+  font-size: 56px;
+  line-height: 58px;
+  padding: 3vh;
+  width: 50vh;
+}
+
+.secondLine {
+  font-family: "Google Sans", "Roboto", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  color: #5f6368;
+  padding: 3vh;
+  width: 50vh;
+}
+
+.Link2 {
+  background-color: #1a73e8;
+  border-radius: 5px;
+  border-color: #dadce0;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 7px 20px 7px 20px;
+  font-size: 20px;
+  margin: 3vh;
+}
+
+.Link2:hover {
+  background-color: #15488a;
+}

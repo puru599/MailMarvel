@@ -1,6 +1,16 @@
+.Wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: white;
+}
+
 .Editor {
   display: flex;
   flex-direction: column-reverse;
+  background-color: white;
+  height: 13.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .FormHeader {
@@ -9,6 +19,8 @@
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
 }
 
 .FormHeader button {
@@ -17,18 +29,34 @@
   border-color: transparent;
   margin: 2px;
   font-size: large;
+  border-radius: 8px 8px 0 0;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 50%;
-  border-radius: 5px;
   box-sizing: border-box;
   margin: auto;
   box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%),
     0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
   border-radius: 8px 8px 0 0;
+  background-color: white;
+}
+
+.form input {
+  border: none;
+  font-size: large;
+  background-color: white;
+}
+
+.modal {
+  border-radius: 8px 8px 0 0;
+  position: absolute;
+  right: 5%;
+  bottom: 0%;
+  width: 28rem;
+  background-color: white;
+  z-index: 20;
 }
 

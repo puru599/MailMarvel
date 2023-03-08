@@ -3,6 +3,7 @@ import { EmailActions } from "../Components/Store/ReduxSlices/EmailSlice";
 
 const useFetch = async (regexEmail) => {
   const dispatch = useDispatch();
+
   try {
     const response = await fetch(
       `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}.json`,
@@ -11,9 +12,9 @@ const useFetch = async (regexEmail) => {
       }
     );
     const data = await response.json();
-
     const inbox = data.inbox;
     let inboxMails = [];
+
     if (!!inbox) {
       inboxMails = Object.keys(inbox).map((mail) => {
         return {
@@ -30,6 +31,7 @@ const useFetch = async (regexEmail) => {
 
     const sent = data.sent;
     let sentMails = [];
+    
     if (!!sent) {
       sentMails = Object.keys(sent).map((mail) => {
         return {

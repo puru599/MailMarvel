@@ -1,47 +1,87 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import React from "react";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { getMailsAction } from "../../../Store/ActionCreators/EmailActions";
+import { useEffect, useState } from "react";
+import classes from "./MailExpand.module.css";
 
-const MailExpand = () => {
+const MailExpand = (props) => {
   const params = useParams();
+  const history = useHistory();
   const mailId = params.mailId;
+
+  const [showMail, setShowMail] = useState([]);
+
   const inbox = useSelector((state) => state.email.inbox);
   const sent = useSelector((state) => state.email.sent);
-  const regexEmail = useSelector((state) => state.auth.regexEmail);
-  const dispatch = useDispatch();
+
   const inboxMail = inbox.find((mail) => {
     return mailId === mail.id;
   });
-  useEffect(() => {
-    dispatch(getMailsAction(regexEmail));
-  }, [dispatch, regexEmail]);
 
-  console.log(inboxMail);
   const sentMail = sent.find((mail) => {
     return mailId === mail.id;
   });
-  let showMail;
-  if (!!sentMail) {
-    showMail = sentMail;
-  }
-  if (!!inboxMail) {
-    showMail = inboxMail;
-  }
+  useEffect(() => {
+    if (!!inboxMail) {
+      setShowMail(inboxMail);
+    }
+    if (!!sentMail) {
+      setShowMail(sentMail);
+    }
+  }, [inboxMail, sentMail]);
+
+  const backHandler = () => {
+    history.replace("/MailHome");
+    if (!!inboxMail) {
+      props.openMails(true);
+    }
+    if (!!sentMail) {
+      props.openMails(false);
+    }
+  };
 
   return (
-    <React.Fragment>
-      <Link to="/MailHome">Back</Link>
-      <div>
-        <h1>Mail Expand</h1>
-        <h2>From: {showMail.fromEmail}</h2>
-        <h3>To: {showMail.toEmail}</h3>
-        <h4>Subject: {showMail.subject}</h4>
-        <h5>Message: {showMail.message}</h5>
+    <div>
+      <div className={classes.header}>
+        <img
+          src={require("../../../../Assets/svg/back.png")}
+          alt="back"
+          onClick={backHandler}
+        />
+        <img
+          src={require("../../../../Assets/svg/refresh.png")}
+          alt="refresh"
+        />
+        <img
+          src={require("../../../../Assets/svg/dot-menu.png")}
+          alt="dot-menu"
+        />
       </div>
-    </React.Fragment>
+      <div className={classes.MailExpand}>
+        <h1>{showMail.subject}</h1>
+        <div className={classes.profile}>
+          <div>
+            <img
+              src={require("../../../../Assets/svg/profile.jpg")}
+              alt="profile"
+            />
+            <h3>{showMail.fromEmail}</h3>
+          </div>
+          <div>
+            <span>{showMail.timeStamp}</span>
+            <img
+              src={require("../../../../Assets/svg/black-star.png")}
+              alt="star"
+            />
+            <img
+              src={require("../../../../Assets/svg/dot-menu.png")}
+              alt="dot-menu"
+            />
+          </div>
+        </div>
+        <p>{showMail.message}</p>
+      </div>
+    </div>
   );
 };
 

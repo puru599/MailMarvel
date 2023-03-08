@@ -18,7 +18,7 @@ const AuthSlice = createSlice({
       localStorage.setItem("idToken", action.payload.idToken);
       localStorage.setItem("regexEmail", action.payload.regexEmail);
     },
-    logout: (state, action) => {
+    logout: (state) => {
       state.email = null;
       state.idToken = null;
       state.regexEmail = null;

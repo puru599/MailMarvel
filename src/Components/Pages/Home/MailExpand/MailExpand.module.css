@@ -1,0 +1,31 @@
+.MailExpand {
+  background-color: white;
+  height: 100vh;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile img {
+  border-radius: 100%;
+  padding: 5px;
+}
+
+.header {
+  display: flex;
+  padding: 10px;
+}
+
+.header img {
+  padding: 10px;
+}
+
+.header img:hover {
+  background-color: rgba(152, 152, 152, 0.3);
+  border-radius: 100%;
+}

@@ -3,3 +3,15 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.body {
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-left: 17%;
+  height: 86%;
+  width: 79%;
+  border-radius: 16px;
+  overflow: hidden;
+  position: inherit;
+  height: 40rem;
+}
+

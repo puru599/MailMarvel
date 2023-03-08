@@ -1,0 +1,135 @@
+.header {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
+.SearchBar {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-right: 42vh;
+  padding: 2px;
+}
+
+.SearchBar input {
+  background-color: transparent;
+  border: 0px;
+  font-size: 20px;
+  border-radius: 8px;
+  color: white;
+  width: 35rem;
+}
+
+.SearchBar input::placeholder {
+  color: white;
+}
+
+.SearchBar input:focus {
+  border: none;
+  box-shadow: none;
+  outline-offset: 0px;
+  outline: none;
+}
+
+.sidebar {
+  width: 10%;
+  position: absolute;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightbar {
+  position: absolute;
+  background-color: transparent;
+  right: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.header img {
+  padding: 10px;
+}
+
+.rightbar img {
+  padding: 10px;
+}
+
+.header img:hover {
+  background-color: rgba(152, 152, 152, 0.3);
+  border-radius: 100%;
+}
+
+.rightbar img:hover {
+  background-color: rgba(152, 152, 152, 0.3);
+  border-radius: 100%;
+}
+
+.logo img:hover {
+  background-color: rgba(152, 152, 152, 0.3);
+  border-radius: 20%;
+}
+
+.sidebar button {
+  align-items: center;
+  flex-direction: row;
+}
+
+.Menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.Menu button {
+  background-color: transparent;
+  border: transparent;
+  display: flex;
+  flex-direction: row;
+  color: #eee;
+  align-items: center;
+  padding: 6px;
+  width: 36vh;
+}
+
+.Menu img {
+  padding: 0px 8px 0 20px;
+}
+
+.Menu button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 0 15px 15px 0;
+}
+
+.ComposeButton button {
+  border-color: transparent;
+  border-radius: 15px;
+  padding: 0.7rem 2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: white;
+  margin: 10px;
+  color: #5f6368;
+  font-size: 15px;
+}
+
+.ComposeButton button:hover {
+  background-color: #c8cacc;
+}
+
+.ComposeButton img {
+  padding: 5px;
+}

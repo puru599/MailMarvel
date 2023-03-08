@@ -1,7 +1,7 @@
 import { AuthActions } from "../ReduxSlices/AuthSlice";
 
-export const SignUpAction = (email, password, userName) => {
-  return async (dispatch) => {
+export const SignUpAction = (email, password, history) => {
+  return async () => {
     try {
       const response = await fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB9BKVZ07pM0finODCLKs3JlBy0IjHzcKo",
@@ -10,18 +10,18 @@ export const SignUpAction = (email, password, userName) => {
           body: JSON.stringify({
             email: email,
             password: password,
-            returnSecureToken: true,
+            returnSecureToken: true
           }),
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
       if (!response.ok) {
         throw new Error("Request Failed");
       }
-      const data = await response.json();
-      console.log(data);
+      await response.json();
+      history.replace("/SignIn");
     } catch (error) {
       console.log(error);
     }
@@ -38,11 +38,11 @@ export const SignInAction = (email, password, regexEmail, history) => {
           body: JSON.stringify({
             email: email,
             password: password,
-            returnSecureToken: true,
+            returnSecureToken: true
           }),
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
       const data = await response.json();
@@ -52,7 +52,7 @@ export const SignInAction = (email, password, regexEmail, history) => {
         AuthActions.login({
           email: email,
           idToken: idToken,
-          regexEmail: regexEmail,
+          regexEmail: regexEmail
         })
       );
     } catch (error) {

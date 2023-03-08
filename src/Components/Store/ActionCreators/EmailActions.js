@@ -9,11 +9,10 @@ export const SendEmailAction = (
   message,
   timeStamp
 ) => {
-  return async (dispatch) => {
-    //Sent Mail fetching for to Address
-
+  return async () => {
+    //Send Mails Action
     try {
-      const response = await fetch(
+      await fetch(
         `https://react-mail-box-client-default-rtdb.firebaseio.com/${toRegexEmail}/inbox.json`,
         {
           method: "POST",
@@ -23,15 +22,13 @@ export const SendEmailAction = (
             subject: subject,
             message: message,
             timeStamp: timeStamp,
-            read: false,
+            read: false
           }),
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
-      const data = await response.json();
-      console.log("Send Mail Part 1", data);
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +36,7 @@ export const SendEmailAction = (
     //Inbox Mail fetching from Address
 
     try {
-      const response = await fetch(
+      await fetch(
         `https://react-mail-box-client-default-rtdb.firebaseio.com/${fromRegexEmail}/sent.json`,
         {
           method: "POST",
@@ -49,114 +46,130 @@ export const SendEmailAction = (
             subject: subject,
             message: message,
             timeStamp: timeStamp,
-            read: false,
+            read: false
           }),
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
-      const data = await response.json();
-      console.log("Send Mail Part 2", data);
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const getMailsAction = (regexEmail) => {
-  console.log("getMailsAction");
+export const getInboxMailsAction = (regexEmail) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}.json`,
+        `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}/inbox.json`,
         {
-          method: "GET",
+          method: "GET"
         }
       );
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
+        const inbox = data;
+        let inboxMails = [];
 
-      const inbox = data.inbox;
-      let inboxMails = [];
-      if (!!inbox) {
-        inboxMails = Object.keys(inbox).map((mail) => {
-          return {
-            fromEmail: inbox[mail].fromEmail,
-            toEmail: inbox[mail].toEmail,
-            subject: inbox[mail].subject,
-            message: inbox[mail].message,
-            timeStamp: inbox[mail].timeStamp,
-            read: inbox[mail].read,
-            id: mail,
-          };
-        });
+        if (!!inbox) {
+          inboxMails = Object.keys(inbox).map((mail) => {
+            return {
+              fromEmail: inbox[mail].fromEmail,
+              toEmail: inbox[mail].toEmail,
+              subject: inbox[mail].subject,
+              message: inbox[mail].message,
+              timeStamp: inbox[mail].timeStamp,
+              read: inbox[mail].read,
+              id: mail
+            };
+          });
+        }
+        dispatch(EmailActions.setInbox(inboxMails));
+      } else {
+        throw new Error("Error occured while fetching inbox...");
       }
-
-      const sent = data.sent;
-      let sentMails = [];
-      if (!!sent) {
-        sentMails = Object.keys(sent).map((mail) => {
-          return {
-            fromEmail: sent[mail].fromEmail,
-            toEmail: sent[mail].toEmail,
-            subject: sent[mail].subject,
-            message: sent[mail].message,
-            timeStamp: sent[mail].timeStamp,
-            read: sent[mail].read,
-            id: mail,
-          };
-        });
-      }
-      dispatch(EmailActions.setInbox(inboxMails));
-      dispatch(EmailActions.setSent(sentMails));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const inboxMailReadFetching = (regexEmail, mail) => {
+export const getSentMailsAction = (regexEmail) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
+        `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}/sent.json`,
+        {
+          method: "GET"
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        const sent = data;
+        let sentMails = [];
+        if (!!sent) {
+          sentMails = Object.keys(sent).map((mail) => {
+            return {
+              fromEmail: sent[mail].fromEmail,
+              toEmail: sent[mail].toEmail,
+              subject: sent[mail].subject,
+              message: sent[mail].message,
+              timeStamp: sent[mail].timeStamp,
+              read: sent[mail].read,
+              id: mail
+            };
+          });
+        }
+        dispatch(EmailActions.setSent(sentMails));
+      } else {
+        throw new Error("Error occured while fetching sent mails...");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const inboxMailReadFetching = (regexEmail, mail, bool) => {
+  return async () => {
+    try {
+      await fetch(
         `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}/inbox/${mail.id}.json`,
         {
           method: "PUT",
           body: JSON.stringify({
             ...mail,
-            read: true,
+            read: bool
           }),
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const sentMailReadFetching = (regexEmail, mail) => {
-  return async (dispatch) => {
+export const sentMailReadFetching = (regexEmail, mail, bool) => {
+  return async () => {
     try {
-      const response = await fetch(
+      await fetch(
         `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}/sent/${mail.id}.json`,
         {
           method: "PUT",
           body: JSON.stringify({
             ...mail,
-            read: true,
+            read: bool
           }),
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -164,17 +177,14 @@ export const sentMailReadFetching = (regexEmail, mail) => {
 };
 
 export const deleteInboxMailFetching = (regexEmail, id) => {
-  return async (dispatch) => {
+  return async () => {
     try {
-      const response = await fetch(
+      await fetch(
         `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}/inbox/${id}.json`,
         {
-          method: "DELETE",
+          method: "DELETE"
         }
       );
-
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -182,20 +192,17 @@ export const deleteInboxMailFetching = (regexEmail, id) => {
 };
 
 export const deleteSentMailFetching = (regexEmail, id) => {
-  return async (dispatch) => {
+  return async () => {
     try {
-      const response = await fetch(
+      await fetch(
         `https://react-mail-box-client-default-rtdb.firebaseio.com/${regexEmail}/sent/${id}.json`,
         {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         }
       );
-
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

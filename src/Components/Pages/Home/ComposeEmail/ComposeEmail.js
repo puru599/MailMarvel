@@ -8,8 +8,13 @@ import Button from "../../../Layout/UI/Button";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SendEmailAction } from "../../../Store/ActionCreators/EmailActions";
+import ReactDOM from "react-dom";
 
-const ComposeEmail = () => {
+const ComposeEmail = (props) => {
+  const id = document.getElementById("composeMail");
+
+  const [minimize, setMinimize] = useState(false);
+
   const toEmailRef = useRef("");
   const subjectRef = useRef("");
 
@@ -48,7 +53,7 @@ const ComposeEmail = () => {
       "Sep",
       "Oct",
       "Nov",
-      "Dec",
+      "Dec"
     ];
     const timeStamp =
       months[date.getMonth()] +
@@ -77,40 +82,67 @@ const ComposeEmail = () => {
     setEditorState(() => EditorState.createEmpty());
   };
 
-  return (
-    <React.Fragment>
-      <form className={classes.form} onSubmit={sendEmailHandler}>
-        <div className={classes.FormHeader}>
-          <span>New Message</span>
-          <div>
-            <button>_</button>
-            <button>x</button>
-          </div>
+  const minimizeHandler = () => {
+    setMinimize((minimize) => {
+      return !minimize;
+    });
+  };
+
+  return ReactDOM.createPortal(
+    <div className={classes.modal}>
+      <div className={classes.FormHeader}>
+        <span>New Message</span>
+        <div>
+          {!minimize && (
+            <img
+              onClick={minimizeHandler}
+              src={require("../../../../Assets/svg/minimize.png")}
+              alt="refresh"
+            />
+          )}
+          {minimize && (
+            <img
+              onClick={minimizeHandler}
+              src={require("../../../../Assets/svg/maximize.png")}
+              alt="refresh"
+            />
+          )}
+          <img
+            src={require("../../../../Assets/svg/close.png")}
+            onClick={props.closeComposeMailHandler}
+            alt="close"
+          />
         </div>
-        <input
-          id="emailId"
-          type="text"
-          placeholder="To:"
-          ref={toEmailRef}
-        ></input>
-        <input type="text" placeholder="Subject" ref={subjectRef}></input>
-        <Editor
-          editorState={editorState}
-          wrapperClassName={classes["Editor"]}
-          editorClassName="demo-editor"
-          toolbarClassName={classes["Toolbar"]}
-          onEditorStateChange={editorStateChangeHandler}
-          toolbar={{
-            inline: { inDropdown: true },
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: true },
-          }}
-        />
-        <Button type="Submit">Send</Button>
-      </form>
-    </React.Fragment>
+      </div>
+      {!minimize && (
+        <form className={classes.form} onSubmit={sendEmailHandler}>
+          <input
+            id="emailId"
+            type="text"
+            placeholder="To"
+            ref={toEmailRef}
+            required
+          ></input>
+          <input type="text" placeholder="Subject" ref={subjectRef}></input>
+          <Editor
+            editorState={editorState}
+            wrapperClassName={classes["Wrapper"]}
+            editorClassName={classes["Editor"]}
+            toolbarClassName={classes["Toolbar"]}
+            onEditorStateChange={editorStateChangeHandler}
+            toolbar={{
+              inline: { inDropdown: true },
+              list: { inDropdown: true },
+              textAlign: { inDropdown: true },
+              link: { inDropdown: true },
+              history: { inDropdown: true }
+            }}
+          />
+          <Button>Send</Button>
+        </form>
+      )}
+    </div>,
+    id
   );
 };
 
