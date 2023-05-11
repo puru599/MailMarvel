@@ -7,7 +7,7 @@ This repository contains a web-based email client application built with React J
 
 ## Features
 - Compose and send emails to multiple recipients
-- Delete emails individually or in bulk
+- Delete unwanted emails
 - Mark emails as read or unread for better inbox management
 - Intuitive and user-friendly interface with dynamic rendering of components
 - "react-draft-wysiwyg" library to develop an intuitive and user-friendly email composition experience
