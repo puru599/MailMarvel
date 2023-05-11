@@ -1,7 +1,10 @@
-<h1 align="center">Z-MAIL</h1>
+<h1 align="center">ZEN MAIL</h1>
+
+[Experience the excitement in real-time by jumping into our live page!](https://react-mail-box-client.web.app/)
 
 ![Image alt text](https://raw.githubusercontent.com/SHA43F/Assets/main/Mail-Client%20(1).png "Login")
 ![Image alt text](https://raw.githubusercontent.com/SHA43F/Assets/main/Mail-Client%20(2).png "HomePage")
+
 # Overview
 This repository contains a web-based email client application built with React JS and CSS. The application allows users to compose, send, and delete emails, as well as manage their inbox by marking emails as read or unread.
 
