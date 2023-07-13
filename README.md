@@ -1,4 +1,4 @@
-<h1 align="center">ZEN MAIL</h1>
+<h1 align="center">MAILMARVEL</h1>
 
 ![Image alt text](https://raw.githubusercontent.com/SHA43F/Assets/main/Mail-Client%20(1).png "Login")
 ![Image alt text](https://raw.githubusercontent.com/SHA43F/Assets/main/Mail-Client%20(2).png "HomePage")
